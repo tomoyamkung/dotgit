@@ -33,7 +33,15 @@ done
 # ~/.gitconfig が存在する場合は処理を終了する
 [[ -f ~/.gitconfig ]] && exit 0
 
-# 設定ファイルをコピーする
-${dryrun} cp ${DOTGIT?"export DOTGIT=~/dotgit"}/etc/deploy/000_config/gitconfig ~/.gitconfig
+# [core] の editor を設定する
+editor=vi  # デフォルトは Vi とする
+is_installed vim && editor=vim  # Vim がインストールされている場合は Vim とする
+
+# 各種設定を sed で置換して ~/.gitconfig を作成する
+if [ ! -z ${dryrun} ]; then
+  sed -e "s/_EDITOR_/${editor}/" ${DOTGIT}/etc/deploy/000_config/gitconfig
+else
+  sed -e "s/_EDITOR_/${editor}/" ${DOTGIT}/etc/deploy/000_config/gitconfig > ~/.gitconfig
+fi
 
 exit 0
