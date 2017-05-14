@@ -1,3 +1,6 @@
+[user]
+    name = _NAME_
+    email = _EMAIL_
 [core]
     editor = _EDITOR_
 [alias]
