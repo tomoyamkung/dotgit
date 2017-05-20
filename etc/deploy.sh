@@ -28,6 +28,9 @@ do
   esac
 done
 
-find ${DOTGIT}/etc/deploy -name "deploy.sh" | sort | xargs -i ${dryrun} sh {}
+${dryrun} ${DOTGIT}/etc/deploy/000_config/deploy.sh
+if [[ $? == 0 ]]; then
+  find ${DOTGIT}/etc/deploy -type f -name "deploy.sh" | sort | grep -v "000_config" | xargs -i ${dryrun} sh {}
+fi
 
 exit 0
