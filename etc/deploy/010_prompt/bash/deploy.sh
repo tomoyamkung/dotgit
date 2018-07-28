@@ -31,7 +31,7 @@ if [[ ! -f "${prompt_script_path}" ]]; then
   curl -o "${prompt_script_path}" https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
   chmod 755 "${prompt_script_path}"
 fi
-if [[ ! `grep -q "${prompt_script_path}" ~/.bashrc` ]]; then
+if ! grep -q '~/.git-prompt.sh' ~/.bashrc; then
   cat <<'EOF' >> ~/.bashrc
 [ -f ~/.git-prompt.sh ] && source ~/.git-prompt.sh
 PS1='[\u@\h \W`__git_ps1`]\$ '
