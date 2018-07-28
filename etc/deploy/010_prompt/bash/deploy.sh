@@ -45,7 +45,9 @@ if [[ ! -f "${completion_script_path}" ]]; then
   curl -o "${completion_script_path}" https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
   chmod 755 "${ompletion_script_path}"
 fi
-if [[ ! `grep -q "${completion_script_path}" ~/.bashrc` ]]; then
-  echo "source ${completion_script_path}" >> ~/.bashrc
+if ! grep -q '~/.git-completion.sh' ~/.bashrc; then
+  cat <<'EOF' >> ~/.bashrc
+[ -f ~/.git-completion.bash ] && source ~/.git-completion.sh
+EOF
 fi
 exit 0
